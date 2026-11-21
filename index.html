@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1e3a8a">
+  <meta name="description" content="AmongWarga — Portal Layanan Mandiri Warga RT/RW, Pembuatan Surat Pengantar Resmi, Data Kependudukan & Pengumuman Kampung.">
+  <title>AmongWarga — Layanan Surat Pengantar & Portal RT/RW</title>
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="app-header no-print">
+    <div class="header-inner container">
+      <div class="brand">
+        <div class="brand-logo">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </div>
+        <div class="brand-info">
+          <div class="brand-title">AmongWarga <span class="badge-wilayah">RT 04 / RW 08</span></div>
+          <div class="brand-sub">Kel. Mantrijeron, Kemantren Mantrijeron, Kota Yogyakarta</div>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="nav-tabs" role="tablist">
+        <button type="button" class="nav-tab active" data-view="surat">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          <span>Surat Pengantar</span>
+        </button>
+        <button type="button" class="nav-tab" data-view="warga">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span>Data Kependudukan</span>
+        </button>
+        <button type="button" class="nav-tab" data-view="mading">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <span>Mading & Agenda RT</span>
+        </button>
+        <button type="button" class="nav-tab" data-view="aspirasi">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          <span>Lapor & Aspirasi</span>
+        </button>
+        <button type="button" class="nav-tab" data-view="darurat">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>Kontak Darurat</span>
+        </button>
+      </nav>
+
+      <!-- Tools -->
+      <div class="header-tools">
+        <button type="button" class="btn-sm-primary" id="btnQuickBuatSurat">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span>Ajukan Surat</span>
+        </button>
+        <div class="online-indicator" title="Mode Offline PWA Aktif">
+          <span class="indicator-dot"></span>
+          <span>Online</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="main-container container">
+
+    <!-- VIEW 1: LAYANAN SURAT PENGANTAR RT/RW -->
+    <section id="viewSurat" class="app-view active">
+      <!-- Welcome Hero Banner -->
+      <div class="civic-hero card">
+        <div class="hero-left">
+          <span class="civic-badge">Layanan Administrasi Mandiri Warga</span>
+          <h1 class="hero-title">Layanan Surat Pengantar RT / RW Resmi</h1>
+          <p class="hero-sub">Ajukan surat pengantar untuk KTP, Kartu Keluarga, SKCK, SKTM, Domisili, atau Keterangan Usaha secara cepat dan dapat dicetak mandiri.</p>
+          <div class="hero-actions">
+            <button type="button" class="btn-primary" id="btnOpenModalBuatSurat">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              <span>Buat Surat Pengantar Sekarang</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="hero-stats-box">
+          <div class="stat-pill">
+            <span>Surat Diterbitkan Bulan Ini</span>
+            <strong id="statSuratBulan">28 Surat</strong>
+          </div>
+          <div class="stat-pill">
+            <span>Rata-rata Waktu Verifikasi</span>
+            <strong>&plusmn; 15 Menit</strong>
+          </div>
+          <div class="stat-pill">
+            <span>Biaya Administrasi</span>
+            <strong class="text-emerald">GRATIS / Bebas Pungli</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Template Pilihan Jenis Surat -->
+      <div class="template-section">
+        <div class="section-title-wrap">
+          <h3>Pilih Jenis Keperluan Surat Pengantar</h3>
+          <p>Klik salah satu template keperluan di bawah ini untuk pengisian cepat otomatis:</p>
+        </div>
+        <div class="template-grid" id="templateGrid">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <!-- Tabel Riwayat Pengajuan Surat -->
+      <div class="table-card card">
+        <div class="table-head-bar">
+          <div>
+            <h3>Arsip & Riwayat Surat Pengantar Terbit</h3>
+            <p>Daftar surat pengantar yang telah diajukan oleh warga RT 04 / RW 08.</p>
+          </div>
+          <button type="button" class="btn-secondary" id="btnExportSuratCsv">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Export CSV Arsip</span>
+          </button>
+        </div>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>No. Surat</th>
+                <th>Nama Pemohon</th>
+                <th>NIK</th>
+                <th>Jenis Keperluan</th>
+                <th>Tanggal Terbit</th>
+                <th>Status</th>
+                <th>Aksi Dokumen</th>
+              </tr>
+            </thead>
+            <tbody id="suratTableBody">
+              <!-- Rendered by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 2: DATA KEPENDUDUKAN & WARGA -->
+    <section id="viewWarga" class="app-view">
+      <div class="section-head-bar card">
+        <div>
+          <h2>Data Kependudukan RT 04 / RW 08</h2>
+          <p>Database kartu keluarga (KK), data warga domisili tetap, kontrakan, dan kos.</p>
+        </div>
+        <div class="head-actions">
+          <button type="button" class="btn-secondary" id="btnExportWargaCsv">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Export CSV</span>
+          </button>
+          <button type="button" class="btn-primary" id="btnOpenAddWargaModal">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span>Daftar Warga Baru</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 4 Demografi Cards -->
+      <div class="demografi-metrics-grid">
+        <div class="demo-card card">
+          <span class="demo-label">Total Kepala Keluarga (KK)</span>
+          <div class="demo-val text-primary" id="demoTotalKk">48 KK</div>
+          <span class="demo-sub">Tersebar di 3 Gang Wilayah RT 04</span>
+        </div>
+        <div class="demo-card card">
+          <span class="demo-label">Total Jiwa Penduduk</span>
+          <div class="demo-val text-emerald" id="demoTotalJiwa">164 Jiwa</div>
+          <span class="demo-sub">84 Laki-laki • 80 Perempuan</span>
+        </div>
+        <div class="demo-card card">
+          <span class="demo-label">Warga Tetap</span>
+          <div class="demo-val text-slate" id="demoWargaTetap">41 KK (85%)</div>
+          <span class="demo-sub">Pemilik rumah tinggal tetap</span>
+        </div>
+        <div class="demo-card card">
+          <span class="demo-label">Warga Domisili / Kontrak</span>
+          <div class="demo-val text-amber" id="demoWargaKontrak">7 KK (15%)</div>
+          <span class="demo-sub">Telah lapor 1x24 jam</span>
+        </div>
+      </div>
+
+      <!-- Search & Filter Warga -->
+      <div class="filter-search-bar card">
+        <div class="search-input-wrap">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="wargaSearchInput" placeholder="Cari berdasarkan nama warga, NIK, atau nomor rumah...">
+        </div>
+        <select id="wargaStatusFilter" class="filter-select">
+          <option value="ALL">Semua Status Tinggal</option>
+          <option value="Tetap">Warga Tetap</option>
+          <option value="Kontrak">Kontrak / Sewa</option>
+          <option value="Kos">Kos / Mahasiswa</option>
+        </select>
+      </div>
+
+      <!-- Warga Table -->
+      <div class="table-card card">
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Nama Kepala Keluarga / Warga</th>
+                <th>NIK</th>
+                <th>No. KK</th>
+                <th>Alamat / Blok Rumah</th>
+                <th>Jumlah Anggota</th>
+                <th>Status Tinggal</th>
+                <th>No. WhatsApp</th>
+              </tr>
+            </thead>
+            <tbody id="wargaTableBody">
+              <!-- Rendered by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 3: MADING & AGENDA RT -->
+    <section id="viewMading" class="app-view">
+      <div class="section-head-bar card">
+        <div>
+          <h2>Mading Digital & Agenda Kegiatan Warga</h2>
+          <p>Pemberitahuan kerja bakti, pertemuan dawis/arisan, jadwal posyandu, dan ronda malam.</p>
+        </div>
+        <button type="button" class="btn-primary" id="btnOpenAddMadingModal">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span>Buat Pengumuman Baru</span>
+        </button>
+      </div>
+
+      <div class="mading-cards-grid" id="madingCardsGrid">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- VIEW 4: LAPOR & ASPIRASI LINGKUNGAN -->
+    <section id="viewAspirasi" class="app-view">
+      <div class="section-head-bar card">
+        <div>
+          <h2>Layanan Aspirasi & Pengaduan Lingkungan</h2>
+          <p>Saluran resmi bagi warga untuk menyampaikan keluhan fasilitas umum, lampu jalan, dan keamanan.</p>
+        </div>
+        <button type="button" class="btn-primary" id="btnOpenAddLaporModal">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span>Tulis Laporan Warga</span>
+        </button>
+      </div>
+
+      <div class="aspirasi-layout-grid">
+        <div class="aspirasi-list-box card">
+          <div class="box-head">
+            <h3>Daftar Pengaduan Warga Terkini</h3>
+            <span class="badge-tag">Terbuka & Transparan</span>
+          </div>
+          <div class="aspirasi-items-list" id="aspirasiItemsList">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <div class="panduan-lapor-box card">
+          <h3>Tata Cara Pelaporan Lingkungan</h3>
+          <ul class="panduan-list">
+            <li><strong>Lampu Jalan Mati / Rusak:</strong> Sertakan nomor tiang atau ancer-ancer depan rumah warga.</li>
+            <li><strong>Tamu Menginap 1x24 Jam:</strong> Pemilik rumah kos atau warga wajib melapor kepada Ketua RT setempat.</li>
+            <li><strong>Saluran Air / Drainase:</strong> Laporkan jika ada tumpukan sampah atau genangan air hujan untuk diagendakan kerja bakti.</li>
+            <li><strong>Keamanan & Ketertiban:</strong> Hubungi pos ronda atau Bhabinkamtibmas jika menjumpai hal mencurigakan.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 5: KONTAK DARURAT KAMPUNG -->
+    <section id="viewDarurat" class="app-view">
+      <div class="section-head-bar card">
+        <div>
+          <h2>Direktori Telepon Darurat & Aparat Wilayah</h2>
+          <p>Simpan dan hubungi kontak darurat kampung saat situasi genting atau butuh bantuan segera.</p>
+        </div>
+      </div>
+
+      <div class="emergency-cards-grid" id="emergencyCardsGrid">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL: AJUKAN SURAT PENGANTAR (FORMULIR LENGKAP) -->
+  <div class="modal-backdrop" id="buatSuratModal" hidden>
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Formulir Permohonan Surat Pengantar RT/RW</h3>
+          <button type="button" class="btn-close" id="btnCloseSuratModal">&times;</button>
+        </div>
+        <form id="formSurat" class="modal-form">
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="suratKeperluanSelect">Keperluan Surat Pengantar</label>
+              <select id="suratKeperluanSelect" required>
+                <option value="Pembuatan / Perpanjangan KTP">Pembuatan / Perpanjangan KTP Elektronik</option>
+                <option value="Pembuatan / Pembaruan Kartu Keluarga (KK)">Pembuatan / Pembaruan Kartu Keluarga (KK)</option>
+                <option value="Pengantar SKCK (Catatan Kepolisian)">Pengantar SKCK (Catatan Kepolisian)</option>
+                <option value="Surat Keterangan Domisili Tempat Tinggal">Surat Keterangan Domisili Tempat Tinggal</option>
+                <option value="Surat Keterangan Tidak Mampu (SKTM) / Beasiswa">Surat Keterangan Tidak Mampu (SKTM) / Beasiswa</option>
+                <option value="Surat Keterangan Kelahiran">Surat Keterangan Kelahiran</option>
+                <option value="Surat Keterangan Kematian">Surat Keterangan Kematian</option>
+                <option value="Pengantar Pengurusan Akta / Surat Nikah">Pengantar Pengurusan Akta / Surat Nikah</option>
+                <option value="Surat Keterangan Usaha (SKU) Mandiri">Surat Keterangan Usaha (SKU) Mandiri</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="suratNamaWarga">Nama Lengkap Pemohon</label>
+              <input type="text" id="suratNamaWarga" required placeholder="Sesuai KTP (Contoh: Bpk. Bambang Sutopo)">
+            </div>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="suratNik">Nomor Induk Kependudukan (NIK 16 Digit)</label>
+              <input type="text" id="suratNik" required placeholder="347101xxxxxxxxxx" maxlength="16" pattern="[0-9]{16}">
+            </div>
+            <div class="form-group">
+              <label for="suratNoKk">Nomor Kartu Keluarga (No. KK)</label>
+              <input type="text" id="suratNoKk" required placeholder="347101xxxxxxxxxx" maxlength="16">
+            </div>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="suratTtl">Tempat & Tanggal Lahir</label>
+              <input type="text" id="suratTtl" required placeholder="Contoh: Yogyakarta, 14 Mei 1985">
+            </div>
+            <div class="form-group">
+              <label for="suratGender">Jenis Kelamin</label>
+              <select id="suratGender">
+                <option value="Laki-laki">Laki-laki</option>
+                <option value="Perempuan">Perempuan</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="suratAgama">Agama</label>
+              <select id="suratAgama">
+                <option value="Islam">Islam</option>
+                <option value="Kristen Protestan">Kristen Protestan</option>
+                <option value="Katolik">Katolik</option>
+                <option value="Hindu">Hindu</option>
+                <option value="Buddha">Buddha</option>
+                <option value="Konghucu">Konghucu</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="suratPekerjaan">Pekerjaan</label>
+              <input type="text" id="suratPekerjaan" required placeholder="Contoh: Karyawan Swasta / Wiraswasta / PNS">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="suratAlamat">Alamat Tempat Tinggal di RT 04 / RW 08</label>
+            <input type="text" id="suratAlamat" required value="Jl. Mayjend Sutoyo No. 18 RT 04 / RW 08 Mantrijeron, Yogyakarta">
+          </div>
+
+          <div class="form-group">
+            <label for="suratKeperluanDetail">Keterangan Spesifik / Tujuan Pengajuan</label>
+            <textarea id="suratKeperluanDetail" rows="2" placeholder="Contoh: Persyaratan kelengkapan administrasi melamar pekerjaan di instansi BUMN..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="suratWa">Nomor WhatsApp Pemohon (Untuk Konfirmasi)</label>
+            <input type="tel" id="suratWa" required placeholder="08xxxxxxxxxx">
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn-secondary" id="btnCancelSuratModal">Batal</button>
+            <button type="submit" class="btn-primary">Terbitkan Surat Pengantar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: CETAK / PRATINJAU RESMI DOKUMEN SURAT PENGANTAR (STANDAR A4 PEMERINTAHAN) -->
+  <div class="modal-backdrop" id="printSuratModal" hidden>
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header no-print">
+          <h3>Pratinjau Surat Pengantar RT / RW Resmi</h3>
+          <button type="button" class="btn-close" id="btnClosePrintModal">&times;</button>
+        </div>
+
+        <!-- PRINTABLE OFFICIAL A4 LETTER SHEET -->
+        <div class="printable-letter" id="printableLetterSheet">
+          <!-- KOP SURAT RESMI -->
+          <div class="letter-kop">
+            <div class="kop-emblem">
+              <svg viewBox="0 0 100 100" width="75" height="75">
+                <circle cx="50" cy="50" r="46" fill="none" stroke="#1e3a8a" stroke-width="4"/>
+                <polygon points="50,15 62,38 88,40 68,58 74,84 50,70 26,84 32,58 12,40 38,38" fill="#d97706"/>
+                <circle cx="50" cy="50" r="18" fill="#1e3a8a"/>
+                <text x="50" y="55" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">DIY</text>
+              </svg>
+            </div>
+            <div class="kop-text">
+              <h4 class="kop-pemkot">PEMERINTAH KOTA YOGYAKARTA</h4>
+              <h4 class="kop-kemantren">KEMANTREN MANTRIJERON • KELURAHAN MANTRIJERON</h4>
+              <h2 class="kop-rt">RUKUN TENTANGGA 04 / RUKUN WARGA 08</h2>
+              <p class="kop-alamat">Sekretariat: Jl. Mayjend Sutoyo No. 12 Mantrijeron, Yogyakarta 55143 • Telp/WA: 0812-3456-7890</p>
+            </div>
+          </div>
+          <div class="kop-line-double"></div>
+
+          <!-- JUDUL SURAT RESMI -->
+          <div class="letter-title-block">
+            <h3 class="letter-heading">SURAT PENGANTAR</h3>
+            <div class="letter-number" id="prnNomorSurat">Nomor: 04/SP/RT.04-RW.08/XI/2026</div>
+          </div>
+
+          <!-- ISI SURAT -->
+          <div class="letter-body">
+            <p class="letter-intro">Yang bertanda tangan di bawah ini, Ketua Rukun Tetangga (RT) 04 / Rukun Warga (RW) 08 Kelurahan Mantrijeron, Kemantren Mantrijeron, Kota Yogyakarta, dengan ini menerangkan bahwa:</p>
+
+            <table class="letter-data-table">
+              <tr>
+                <td class="col-field">Nama Lengkap</td>
+                <td class="col-colon">:</td>
+                <td class="col-value"><strong id="prnNama">Bpk. Bambang Sutopo</strong></td>
+              </tr>
+              <tr>
+                <td class="col-field">Nomor Induk Kependudukan (NIK)</td>
+                <td class="col-colon">:</td>
+                <td class="col-value"><strong id="prnNik">3471011405850001</strong></td>
+              </tr>
+              <tr>
+                <td class="col-field">Nomor Kartu Keluarga (KK)</td>
+                <td class="col-colon">:</td>
+                <td class="col-value" id="prnNoKk">3471012002100045</td>
+              </tr>
+              <tr>
+                <td class="col-field">Tempat / Tanggal Lahir</td>
+                <td class="col-colon">:</td>
+                <td class="col-value" id="prnTtl">Yogyakarta, 14 Mei 1985</td>
+              </tr>
+              <tr>
+                <td class="col-field">Jenis Kelamin / Agama</td>
+                <td class="col-colon">:</td>
+                <td class="col-value" id="prnGenderAgama">Laki-laki / Islam</td>
+              </tr>
+              <tr>
+                <td class="col-field">Pekerjaan</td>
+                <td class="col-colon">:</td>
+                <td class="col-value" id="prnPekerjaan">Karyawan Swasta</td>
+              </tr>
+              <tr>
+                <td class="col-field">Alamat Tinggal Sesuai KTP</td>
+                <td class="col-colon">:</td>
+                <td class="col-value" id="prnAlamat">Jl. Mayjend Sutoyo No. 18 RT 04 / RW 08 Mantrijeron, Yogyakarta</td>
+              </tr>
+              <tr>
+                <td class="col-field">Keperluan Surat</td>
+                <td class="col-colon">:</td>
+                <td class="col-value"><strong id="prnKeperluan">Pembuatan / Perpanjangan KTP Elektronik</strong></td>
+              </tr>
+              <tr>
+                <td class="col-field">Keterangan Lain-lain</td>
+                <td class="col-colon">:</td>
+                <td class="col-value" id="prnKeterangan">Orang tersebut di atas adalah benar-benar warga penduduk RT 04 / RW 08 yang berkelakuan baik di lingkungan masyarakat.</td>
+              </tr>
+            </table>
+
+            <p class="letter-outro">Demikian Surat Pengantar ini dibuat dengan sebenarnya untuk dapat dipergunakan sebagaimana mestinya dan kepada instansi yang berkepentingan mohon menjadi maklum.</p>
+          </div>
+
+          <!-- BLOK TANDA TANGAN -->
+          <div class="letter-signature-block">
+            <div class="sign-date-row">
+              Yogyakarta, <span id="prnTanggalSurat">22 November 2026</span>
+            </div>
+            <div class="signatures-grid">
+              <div class="sign-column">
+                <p>Mengetahui,</p>
+                <p><strong>Ketua RW 08 Mantrijeron</strong></p>
+                <div class="sign-space"></div>
+                <strong class="sign-name">( H. SUPARDI, S.Pd. )</strong>
+              </div>
+              <div class="sign-column">
+                <p>Pemohon / Warga,</p>
+                <div class="sign-space-empty"></div>
+                <strong class="sign-name" id="prnSignPemohon">( BAMBANG SUTOPO )</strong>
+              </div>
+              <div class="sign-column stempel-column">
+                <p>Ketua RT 04 Mantrijeron,</p>
+                <div class="sign-space">
+                  <div class="stempel-cap">
+                    <span>RT 04 / RW 08</span>
+                    <span>MANTRIJERON</span>
+                  </div>
+                </div>
+                <strong class="sign-name">( AGUS TRI PRASETYO )</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer no-print">
+          <button type="button" class="btn-secondary" id="btnDonePrintModal">Tutup</button>
+          <button type="button" class="btn-wa" id="btnSendSuratWa">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2"/></svg>
+            <span>Kirim Notifikasi ke WA Pengurus RT</span>
+          </button>
+          <button type="button" class="btn-primary" id="btnTriggerPrintLetter">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
+            <span>Cetak Dokumen Resmi (A4)</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: DAFTAR WARGA BARU -->
+  <div class="modal-backdrop" id="addWargaModal" hidden>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Pendaftaran Warga Baru / Lapor Pindah</h3>
+          <button type="button" class="btn-close" id="btnCloseAddWarga">&times;</button>
+        </div>
+        <form id="formAddWarga" class="modal-form">
+          <div class="form-group">
+            <label for="wargaNamaInput">Nama Kepala Keluarga / Warga</label>
+            <input type="text" id="wargaNamaInput" required placeholder="Contoh: Bpk. Joko Supriyadi">
+          </div>
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="wargaNikInput">NIK (16 Digit)</label>
+              <input type="text" id="wargaNikInput" required placeholder="347101xxxxxxxxxx" maxlength="16">
+            </div>
+            <div class="form-group">
+              <label for="wargaNoKkInput">No. Kartu Keluarga (KK)</label>
+              <input type="text" id="wargaNoKkInput" required placeholder="347101xxxxxxxxxx" maxlength="16">
+            </div>
+          </div>
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="wargaRumahInput">Alamat / No. Rumah</label>
+              <input type="text" id="wargaRumahInput" required placeholder="Contoh: Gang Kenari No. 24">
+            </div>
+            <div class="form-group">
+              <label for="wargaStatusTinggalInput">Status Tinggal</label>
+              <select id="wargaStatusTinggalInput">
+                <option value="Tetap">Warga Tetap</option>
+                <option value="Kontrak">Kontrak / Sewa</option>
+                <option value="Kos">Kos / Mahasiswa</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="wargaJumlahAnggotaInput">Jumlah Jiwa dalam KK</label>
+              <input type="number" id="wargaJumlahAnggotaInput" required value="3" min="1">
+            </div>
+            <div class="form-group">
+              <label for="wargaWaInput">No. WhatsApp</label>
+              <input type="tel" id="wargaWaInput" required placeholder="08xxxxxxxxxx">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn-secondary" id="btnCancelAddWarga">Batal</button>
+            <button type="submit" class="btn-primary">Simpan Data Warga</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: BUAT PENGUMUMAN MADING -->
+  <div class="modal-backdrop" id="addMadingModal" hidden>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Buat Pengumuman & Agenda RT</h3>
+          <button type="button" class="btn-close" id="btnCloseAddMading">&times;</button>
+        </div>
+        <form id="formAddMading" class="modal-form">
+          <div class="form-group">
+            <label for="madingJudulInput">Judul Pengumuman</label>
+            <input type="text" id="madingJudulInput" required placeholder="Contoh: Kerja Bakti Bersih Selokan Menjelang Musim Hujan">
+          </div>
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="madingKategoriInput">Kategori</label>
+              <select id="madingKategoriInput">
+                <option value="Kerja Bakti">Kerja Bakti & Lingkungan</option>
+                <option value="Posyandu">Posyandu & Kesehatan</option>
+                <option value="Pertemuan RT">Pertemuan & Arisan</option>
+                <option value="Keamanan">Keamanan & Siskamling</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="madingWaktuInput">Waktu Pelaksanaan</label>
+              <input type="text" id="madingWaktuInput" required placeholder="Contoh: Ahad, 29 Nov 2026 (07:00 WIB)">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="madingIsiInput">Isi Pengumuman Lengkap</label>
+            <textarea id="madingIsiInput" rows="3" required placeholder="Tuliskan detail tempat kumpul, perlengkapan yang dibawa, atau himbauan untuk warga..."></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn-secondary" id="btnCancelAddMading">Batal</button>
+            <button type="submit" class="btn-primary">Terbitkan Pengumuman</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: LAPOR ASPIRASI WARGA -->
+  <div class="modal-backdrop" id="addLaporModal" hidden>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Tulis Laporan & Aspirasi Lingkungan</h3>
+          <button type="button" class="btn-close" id="btnCloseAddLapor">&times;</button>
+        </div>
+        <form id="formAddLapor" class="modal-form">
+          <div class="form-group">
+            <label for="laporNamaInput">Nama Pelapor (Warga)</label>
+            <input type="text" id="laporNamaInput" required placeholder="Nama Anda">
+          </div>
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="laporKategoriSelect">Kategori Masalah</label>
+              <select id="laporKategoriSelect">
+                <option value="Fasilitas Umum">Fasilitas Umum / Lampu Jalan</option>
+                <option value="Kebersihan & Sampah">Kebersihan & Sampah</option>
+                <option value="Keamanan Lingkungan">Keamanan & Ketertiban</option>
+                <option value="Tamu Menginap 1x24 Jam">Lapor Tamu 1x24 Jam</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="laporLokasiInput">Lokasi Kejadian</label>
+              <input type="text" id="laporLokasiInput" required placeholder="Contoh: Depan Pos Ronda RT 04">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="laporDetailInput">Rincian Laporan / Aspirasi</label>
+            <textarea id="laporDetailInput" rows="3" required placeholder="Jelaskan kendala atau saran perbaikan yang diharapkan..."></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn-secondary" id="btnCancelAddLapor">Batal</button>
+            <button type="submit" class="btn-primary">Kirim Laporan</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <footer class="app-footer no-print">
+    <div class="container footer-inner">
+      <p>&copy; 2026 AmongWarga — Sistem Informasi & Layanan Mandiri Warga RT 04 / RW 08 Mantrijeron Yogyakarta.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
